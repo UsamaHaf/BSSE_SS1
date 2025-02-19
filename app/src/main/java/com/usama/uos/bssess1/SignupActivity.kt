@@ -1,14 +1,11 @@
 package com.usama.uos.bssess1
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class SignupActivity : AppCompatActivity() {
 
@@ -19,7 +16,6 @@ class SignupActivity : AppCompatActivity() {
    private lateinit var password: EditText
    private lateinit var signup: Button
 
-   @SuppressLint("MissingInflatedId")
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_signup)
@@ -32,15 +28,46 @@ class SignupActivity : AppCompatActivity() {
       signup = findViewById(R.id.btnSignUp)
 
       signup.setOnClickListener {
+         val strEmail = emailAddress.text.toString()
+         val strPhoneNo = phoneNumber.text.toString()
+         val strFName = firstName.text.toString()
+         val strLName = lastName.text.toString()
+         val strPassword = password.text.toString()
 
-         Toast.makeText(this@SignupActivity, "Signup Checking Listener" , Toast.LENGTH_SHORT).show()
+         signUpUser(strEmail, strPhoneNo, strFName, strLName, strPassword)
+
 
       }
 
 
    }
-   fun signup(){
 
+   private fun signUpUser(strEmail: String, strPhoneNo: String, strFName: String, strLName: String, strPassword: String) {
+
+      if (strEmail.isEmpty()) {
+         Toast.makeText(this@SignupActivity, "Enter EmailAddress", Toast.LENGTH_SHORT).show()
+
+      } else if (strPhoneNo.isEmpty()) {
+         Toast.makeText(this@SignupActivity, "Enter Phone Number", Toast.LENGTH_SHORT).show()
+
+      } else if (strFName.isEmpty()) {
+         Toast.makeText(this@SignupActivity, "Enter First Name", Toast.LENGTH_SHORT).show()
+
+      } else if (strLName.isEmpty()) {
+         Toast.makeText(this@SignupActivity, "Enter Last Name", Toast.LENGTH_SHORT).show()
+
+      } else if (strPassword.isEmpty()) {
+         Toast.makeText(this@SignupActivity, "Enter Password", Toast.LENGTH_SHORT).show()
+
+      } else {
+
+         startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
+
+         Toast.makeText(this@SignupActivity, "Signup Successfull BSSE SS1", Toast.LENGTH_SHORT)
+            .show()
+
+      }
 
    }
+
 }
