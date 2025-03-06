@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Option Menu" />
+
+    <item
+        android:title="New Broadcast"
+        android:id="@+id/broadOpMenu" />
+
+    <item
+        android:title="Linked Devices"
+        android:id="@+id/devicesOpMenu" />
+
+    <item
+        android:title="New Group"
+        android:id="@+id/newGrpOpMenu" />
+
+</menu>
