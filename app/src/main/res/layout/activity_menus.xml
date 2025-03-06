@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MenusActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnContextMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardMaxElevation="16dp"
+        app:cardCornerRadius="16dp">
+
+        <TextView
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Context Menu"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardMaxElevation="16dp"
+        app:cardCornerRadius="16dp">
+
+        <TextView
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="For Option Menu we have to change our app theme in Values direcrory, themes folder"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnOptionMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardMaxElevation="16dp"
+        app:cardCornerRadius="16dp">
+
+        <TextView
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Option Menu"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>
