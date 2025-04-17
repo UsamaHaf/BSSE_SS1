@@ -17,6 +17,7 @@
         android:textSize="26sp"
         android:textStyle="bold" />
 
+
     <EditText
         android:inputType="number"
         android:layout_marginLeft="12dp"

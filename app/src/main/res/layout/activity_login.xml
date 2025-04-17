@@ -11,6 +11,7 @@
         android:id="@+id/mainTextLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="12dp"
         android:text="Login Activity"
         android:textSize="36sp" />
 
@@ -19,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mainTextLogin"
+        android:layout_margin="12dp"
         android:hint="Email Address" />
 
     <EditText
@@ -26,12 +28,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginEmail"
+        android:layout_margin="12dp"
         android:hint="Password" />
 
     <Button
+        android:id="@+id/btnLoginUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_margin="12dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/blue"
         android:text="Login" />
