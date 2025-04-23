@@ -107,10 +107,8 @@ class MenusActivity : AppCompatActivity() {
             R.id.newGrpPopMenu -> {
                Toast.makeText(this@MenusActivity, "New PopUp Group", Toast.LENGTH_SHORT).show()
             }
-
             R.id.broadPopMenu -> {
                Toast.makeText(this@MenusActivity, "Broadcast PopUp Menu", Toast.LENGTH_SHORT).show()
-
             }
          }
          true
