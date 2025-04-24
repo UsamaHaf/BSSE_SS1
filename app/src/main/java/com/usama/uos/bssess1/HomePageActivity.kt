@@ -48,6 +48,7 @@ class HomePageActivity : AppCompatActivity() {
       //setting header view
 
 
+
       btnOpenSideMenu.setOnClickListener {
          myDrawerLayout.openDrawer(GravityCompat.START)
       }
