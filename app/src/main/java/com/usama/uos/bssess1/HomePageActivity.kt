@@ -1,7 +1,11 @@
 package com.usama.uos.bssess1
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -21,6 +25,7 @@ class HomePageActivity : AppCompatActivity() {
    lateinit var myDrawerLayout: DrawerLayout
    lateinit var myNavigationView: NavigationView
    lateinit var btnOpenSideMenu: ImageView
+   lateinit var appBarTitle: TextView
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -31,8 +36,17 @@ class HomePageActivity : AppCompatActivity() {
       myDrawerLayout = findViewById(R.id.mainDrawerLayout)
       myNavigationView = findViewById(R.id.ss1NavigationView)
       btnOpenSideMenu = findViewById(R.id.btnSideMenuOpen)
+      appBarTitle = findViewById(R.id.appBarTitle)
 
+      setFragment(UserProfileFragment(), "User Profile")
       myDrawerLayout.closeDrawer(GravityCompat.START)
+
+      //setting header view
+      val viewHeader: View = myNavigationView.getHeaderView(0)
+      val headerUsername = viewHeader.findViewById<TextView>(R.id.headerEmailAddress)
+      headerUsername.text = sharedPreferences.getEmail("UserEmail")
+      //setting header view
+
 
       btnOpenSideMenu.setOnClickListener {
          myDrawerLayout.openDrawer(GravityCompat.START)
@@ -46,21 +60,28 @@ class HomePageActivity : AppCompatActivity() {
       myNavigationView.setNavigationItemSelectedListener { menuItems ->
          when (menuItems.itemId) {
             R.id.userProfile -> {
-               setFragment(UserProfileFragment(), "")
+               setFragment(UserProfileFragment(), "User Profile")
             }
 
             R.id.aboutUs -> {
-               setFragment(AboutUsFragment(), "")
+               setFragment(AboutUsFragment(), "About Us")
+            }
+
+            R.id.logoutUser -> {
+               sharedPreferences.saveIsLoggedIn("UserLoginStatus", "False")
+               Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show()
+               startActivity(Intent(this@HomePageActivity, LoginActivity::class.java))
             }
          }
          true
       }
    }
 
-   fun setFragment(fragment: Fragment, title: String) {
+   private fun setFragment(fragment: Fragment, title: String) {
       this@HomePageActivity.supportFragmentManager.beginTransaction()
          .replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit()
       myDrawerLayout.closeDrawer(GravityCompat.START)
+      appBarTitle.text = title
    }
 }
 
