@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.usama.uos.bssess1.Fragments.AboutUsFragment
 import com.usama.uos.bssess1.Fragments.UserProfileFragment
 import com.usama.uos.bssess1.SharedPref.MySharedPreferences
@@ -27,11 +28,14 @@ class HomePageActivity : AppCompatActivity() {
    lateinit var btnOpenSideMenu: ImageView
    lateinit var appBarTitle: TextView
 
+   lateinit var firebaseAuth: FirebaseAuth
+
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_home_page)
 
       sharedPreferences = MySharedPreferences(this@HomePageActivity)
+      firebaseAuth = FirebaseAuth.getInstance()
 
       myDrawerLayout = findViewById(R.id.mainDrawerLayout)
       myNavigationView = findViewById(R.id.ss1NavigationView)
@@ -46,7 +50,6 @@ class HomePageActivity : AppCompatActivity() {
       val headerUsername = viewHeader.findViewById<TextView>(R.id.headerEmailAddress)
       headerUsername.text = sharedPreferences.getEmail("UserEmail")
       //setting header view
-
 
 
       btnOpenSideMenu.setOnClickListener {
@@ -69,9 +72,13 @@ class HomePageActivity : AppCompatActivity() {
             }
 
             R.id.logoutUser -> {
-               sharedPreferences.saveIsLoggedIn("UserLoginStatus", "False")
+
+               firebaseAuth.signOut()
                Toast.makeText(this, "Logout Successfully", Toast.LENGTH_SHORT).show()
                startActivity(Intent(this@HomePageActivity, LoginActivity::class.java))
+
+               /*sharedPreferences.saveIsLoggedIn("UserLoginStatus", "False")
+               */
             }
          }
          true

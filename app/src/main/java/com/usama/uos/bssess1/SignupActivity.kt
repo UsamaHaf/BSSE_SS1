@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class SignupActivity : AppCompatActivity() {
 
@@ -15,17 +17,26 @@ class SignupActivity : AppCompatActivity() {
    private lateinit var firstName: EditText
    private lateinit var password: EditText
    private lateinit var signup: Button
+   private lateinit var btnAlreadyExist: TextView
+   private lateinit var firebaseAuth: FirebaseAuth
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_signup)
 
+      firebaseAuth = FirebaseAuth.getInstance()
+
+      btnAlreadyExist = findViewById(R.id.btnAlreadyExist)
       emailAddress = findViewById(R.id.edtEmailAddress)
       phoneNumber = findViewById(R.id.edtPhoneNo)
       lastName = findViewById(R.id.edtLastName)
       firstName = findViewById(R.id.edtFirstName)
       password = findViewById(R.id.edtPassword)
       signup = findViewById(R.id.btnSignUp)
+
+      btnAlreadyExist.setOnClickListener {
+         startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
+      }
 
       signup.setOnClickListener {
          val strEmail = emailAddress.text.toString()
@@ -61,13 +72,29 @@ class SignupActivity : AppCompatActivity() {
 
       } else {
 
-         startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
+         signUpFirebaseUser(strEmail , strPassword)
 
-         Toast.makeText(this@SignupActivity, "Signup Successfull BSSE SS1", Toast.LENGTH_SHORT)
-            .show()
+
+
+
 
       }
 
+   }
+
+   private fun signUpFirebaseUser(strEmail: String, strPassword: String) {
+
+      firebaseAuth.createUserWithEmailAndPassword(strEmail , strPassword).addOnCompleteListener { task ->
+
+         if(task.isSuccessful){
+
+            startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
+            Toast.makeText(this@SignupActivity , "Signup Successfull BSSE SS1" , Toast.LENGTH_SHORT).show()
+
+         }else{
+            Toast.makeText(this@SignupActivity , "SignInFailed: ${task.exception}" , Toast.LENGTH_SHORT).show()
+         }
+      }
    }
 
 }
