@@ -7,7 +7,7 @@
     tools:context=".Fragments.UserProfileFragment">
 
     <TextView
-        android:id="@+id/getEmail"
+        android:id="@+id/noDataExit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -21,7 +21,7 @@
         android:id="@+id/pbUserProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/getEmail"
+        android:layout_below="@id/noDataExit"
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
