@@ -48,7 +48,7 @@ class HomePageActivity : AppCompatActivity() {
       //setting header view
       val viewHeader: View = myNavigationView.getHeaderView(0)
       val headerUsername = viewHeader.findViewById<TextView>(R.id.headerEmailAddress)
-      headerUsername.text = sharedPreferences.getEmail("UserEmail")
+      headerUsername.text = firebaseAuth.currentUser?.email
       //setting header view
 
 

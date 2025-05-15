@@ -15,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
    lateinit var loginEmail: EditText
    lateinit var loginPassword: EditText
    lateinit var btnLoginUser: Button
+   lateinit var btnNewAccount: Button
    lateinit var auth: FirebaseAuth
 
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
       loginEmail = findViewById(R.id.loginEmail)
       loginPassword = findViewById(R.id.loginPassword)
       btnLoginUser = findViewById(R.id.btnLoginUser)
+      btnNewAccount = findViewById(R.id.btnNewAccount)
+      btnNewAccount?.setOnClickListener {
+         startActivity(Intent(this@LoginActivity , SignupActivity::class.java))
+      }
 
       btnLoginUser.setOnClickListener {
          val strEmail = loginEmail.text.toString()

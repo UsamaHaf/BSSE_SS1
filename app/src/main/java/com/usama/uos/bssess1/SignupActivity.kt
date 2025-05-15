@@ -2,12 +2,16 @@ package com.usama.uos.bssess1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.usama.uos.bssess1.Models.UserModel
 
 class SignupActivity : AppCompatActivity() {
 
@@ -19,6 +23,7 @@ class SignupActivity : AppCompatActivity() {
    private lateinit var signup: Button
    private lateinit var btnAlreadyExist: TextView
    private lateinit var firebaseAuth: FirebaseAuth
+   private lateinit var pbSignUp: ProgressBar
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -33,9 +38,10 @@ class SignupActivity : AppCompatActivity() {
       firstName = findViewById(R.id.edtFirstName)
       password = findViewById(R.id.edtPassword)
       signup = findViewById(R.id.btnSignUp)
+      pbSignUp = findViewById(R.id.pbSignUp)
 
       btnAlreadyExist.setOnClickListener {
-         startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
+         startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
       }
 
       signup.setOnClickListener {
@@ -45,6 +51,7 @@ class SignupActivity : AppCompatActivity() {
          val strLName = lastName.text.toString()
          val strPassword = password.text.toString()
 
+         pbSignUp.visibility = ProgressBar.VISIBLE
          signUpUser(strEmail, strPhoneNo, strFName, strLName, strPassword)
 
 
@@ -72,29 +79,64 @@ class SignupActivity : AppCompatActivity() {
 
       } else {
 
-         signUpFirebaseUser(strEmail , strPassword)
-
-
-
+         signUpFirebaseUser(strEmail, strPassword, strPhoneNo, strFName, strLName)
 
 
       }
 
    }
 
-   private fun signUpFirebaseUser(strEmail: String, strPassword: String) {
+   private fun signUpFirebaseUser(strEmail: String, strPassword: String, strPhoneNo: String, strFName: String, strLName: String) {
 
-      firebaseAuth.createUserWithEmailAndPassword(strEmail , strPassword).addOnCompleteListener { task ->
+      firebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword)
+         .addOnCompleteListener { task ->
 
-         if(task.isSuccessful){
+            if (task.isSuccessful) {
 
-            startActivity(Intent(this@SignupActivity , LoginActivity::class.java))
-            Toast.makeText(this@SignupActivity , "Signup Successfull BSSE SS1" , Toast.LENGTH_SHORT).show()
+               try {
 
-         }else{
-            Toast.makeText(this@SignupActivity , "SignInFailed: ${task.exception}" , Toast.LENGTH_SHORT).show()
+                  val userModel = UserModel()
+                  userModel.userEmailAddress = strEmail
+                  userModel.firstName = strFName
+                  userModel.lastName = strLName
+                  userModel.userPhoneNo = strPhoneNo
+                  userModel.userPassword = strPassword
+                  userModel.userID = firebaseAuth.currentUser?.uid
+
+                  FirebaseDatabase.getInstance().getReference("Users")
+                     .child(firebaseAuth.currentUser!!.uid).setValue(userModel)
+                     .addOnCompleteListener { addTask ->
+
+                        if(addTask.isSuccessful){
+                           pbSignUp.visibility = ProgressBar.GONE
+
+                           startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+                           Toast.makeText(this@SignupActivity, "Signup Successful BSSE SS1", Toast.LENGTH_SHORT)
+                              .show()
+                        }else{
+                           Toast.makeText(this@SignupActivity, "Error: ${addTask.exception}", Toast.LENGTH_SHORT)
+                              .show()
+                        }
+
+
+                     }
+
+
+               } catch (e: Exception) {
+                  pbSignUp.visibility = ProgressBar.GONE
+                  Log.e("DBAddException", "Error:- $e")
+               }
+
+
+
+
+
+            } else {
+               pbSignUp.visibility = ProgressBar.GONE
+               Toast.makeText(this@SignupActivity, "SignInFailed: ${task.exception}", Toast.LENGTH_SHORT)
+                  .show()
+            }
          }
-      }
    }
 
 }
