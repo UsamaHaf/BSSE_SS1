@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.usama.uos.bssess1.Fragments.AboutUsFragment
+import com.usama.uos.bssess1.Fragments.AddProductFragment
 import com.usama.uos.bssess1.Fragments.UserProfileFragment
 import com.usama.uos.bssess1.SharedPref.MySharedPreferences
 
@@ -68,7 +69,7 @@ class HomePageActivity : AppCompatActivity() {
             }
 
             R.id.aboutUs -> {
-               setFragment(AboutUsFragment(), "About Us")
+               setFragment(AddProductFragment(), "Add Product")
             }
 
             R.id.logoutUser -> {

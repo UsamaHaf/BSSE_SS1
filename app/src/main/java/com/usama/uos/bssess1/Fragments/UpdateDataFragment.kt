@@ -41,7 +41,6 @@ class UpdateDataFragment : Fragment() {
 
          edtUpdateUserName.setText("${userModel.firstName + userModel.lastName}")
 
-
       } else {
          Toast.makeText(requireActivity(), "No Data In Bundle Found", Toast.LENGTH_SHORT).show()
       }
